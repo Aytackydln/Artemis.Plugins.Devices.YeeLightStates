@@ -1,17 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>10</LangVersion>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="RGB.NET.Core" Version="1.0.0-prerelease.11" />
+      <PackageReference Include="JetBrains.Annotations" Version="2023.2.0" />
+      <PackageReference Include="Lombok.NET" Version="1.2.3" />
+      <PackageReference Include="RGB.NET.Core" Version="2.0.0-prerelease.111" />
     </ItemGroup>
 
     <ItemGroup>
       <Reference Include="YeeLightAPI, Version=0.0.6.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>YeeLightAPI.dll</HintPath>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="LibraryWrapper" />
     </ItemGroup>
 
 </Project>

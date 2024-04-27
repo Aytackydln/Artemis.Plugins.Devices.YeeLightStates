@@ -1,4 +1,5 @@
 {
+  "API": "1.0",
   "Guid": "c2c4eac7-e78d-44fc-ab82-c0efd0d78e19",
   "Name": "Artemis.Plugins.Devices.YeeLightStates",
   "Description": "Yeelight plugin with color modes.",

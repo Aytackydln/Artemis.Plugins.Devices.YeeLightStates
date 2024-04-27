@@ -4,37 +4,36 @@ using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 
-namespace Artemis.Plugins.Devices.YeeLightStates
+namespace Artemis.Plugins.Devices.YeeLightStates;
+
+public class YeelightDeviceProvider : DeviceProvider
 {
-    public class YeelightDeviceProvider : DeviceProvider
-    {
-        public static readonly String DeviceIpAddress = "DeviceIpAddress";
+    public static readonly String DeviceIpAddress = "DeviceIpAddress";
         
-        private readonly IRgbService _rgbService;
-        private readonly PluginSetting<String> _ipSetting;
+    private readonly IRgbService _rgbService;
+    private readonly PluginSetting<String> _ipSetting;
 
-        public YeelightDeviceProvider(IRgbService rgbService, PluginSettings settings) : base(RGB.NET.YeeLightStates.YeelightProvider.Instance)
-        {
-            _ipSetting = settings.GetSetting(DeviceIpAddress, "0.0.0.0");
-            RGB.NET.YeeLightStates.YeelightProvider.IpAddress = IPAddress.Parse(_ipSetting.Value);
-            _rgbService = rgbService;
-            CreateMissingLedsSupported = false;
-            RemoveExcessiveLedsSupported = true;
+    public YeelightDeviceProvider(IRgbService rgbService, PluginSettings settings) : base(RGB.NET.YeeLightStates.YeelightProvider.Instance)
+    {
+        _ipSetting = settings.GetSetting(DeviceIpAddress, "192.168.1.248");
+        RGB.NET.YeeLightStates.YeelightProvider.IpAddresses = _ipSetting.Value;
+        _rgbService = rgbService;
+        CreateMissingLedsSupported = false;
+        RemoveExcessiveLedsSupported = true;
 
-            CanDetectLogicalLayout = false;
-            CanDetectPhysicalLayout = false;
-        }
+        CanDetectLogicalLayout = false;
+        CanDetectPhysicalLayout = false;
+    }
 
-        public override void Enable()
-        {
-            RGB.NET.YeeLightStates.YeelightProvider.IpAddress = IPAddress.Parse(_ipSetting.Value);
-            _rgbService.AddDeviceProvider(RgbDeviceProvider);
-        }
+    public override void Enable()
+    {
+        RGB.NET.YeeLightStates.YeelightProvider.IpAddresses = "192.168.1.248";
+        _rgbService.AddDeviceProvider(RgbDeviceProvider);
+    }
 
-        public override void Disable()
-        {
-            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
-            RgbDeviceProvider.Dispose();
-        }
+    public override void Disable()
+    {
+        _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+        RgbDeviceProvider.Dispose();
     }
 }
